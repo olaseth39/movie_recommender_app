@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <img src="/static/uploads/movie_image/{{movie.image}}" alt="movie_image">
+                <h3 class="textcolor">{{movie.title}}</h3>
+            </div>
+            <div class="col-md-6" style="padding-top:80px">
+                <h3>Overview</h3>
+                <p style="line-height:25px;">{{movie.overview}}</p>
+                <p>Date released : {{movie.date}}</p>
+                <small><b>Average vote count</b>  {{movie.rating}} </small>
+            </div>
+        </div>   
+    </div>
+
+    <div>
+        <p style="font-size: 20px"><b><i>People that watched {{movie.title}} also watched the movies below</i></b></p>
+    </div>
+
+    <div class="row">
+        {% for rec_movie in rec_movies %}
+        <div class="col-md-12">
+                <hr>
+                <div class="col-md-6">
+                    <img src="/static/uploads/movie_image/{{rec_movie.image}}" alt="movie_image">
+                    <h3 class="textcolor">{{rec_movie.title}}</h3>
+                </div>
+                <div class="col-md-6" style="padding-top:80px">
+                    <h3>Overview</h3>
+                    <p style="line-height:25px";>{{rec_movie.overview}}</p>
+                    <p>Date released : {{rec_movie.date}}</p>
+                    <small><b class="textcolor">Average vote count</b>  {{rec_movie.rating}} </small>
+                </div>
+        </div>
+        {% endfor %}   
+    </div>
+    <!-- {% for rec_movie in rec_movies %}
+        <hr>
+        <img src="/static/uploads/movie_image/{{rec_movie.image}}" alt="movie_image">
+        <h3 class="textcolor">{{rec_movie.title}}</h3>
+    {% endfor %}
+{% endblock %} -->

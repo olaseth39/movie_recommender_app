@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% from 'includes/_formhelpers.html' import render_field %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1>Add Movie</h1> 
+                
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        {{render_field(form.title, class_="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        {{render_field(form.rating, class_="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        {{render_field(form.movie_image, class_="form-control")}}
+                    </div>
+                    <p><input type="submit" class="btn btn-primary btn-block" value="Submit"></p>
+                   
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+{% endblock %}

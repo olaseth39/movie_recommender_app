@@ -1,0 +1,105 @@
+@app.route('/add_movie', methods=['GET', 'POST'])
+@is_logged_in
+def add_movies():
+    #instantiate the MoviesForm
+    form = MoviesForm(request.form)
+    #check the request method and validation
+    if request.method == 'POST' and form.validate():
+        title = form.title.data #get the title field
+        rating = form.rating.data #get the rating field
+        movie_image = form.movie_image.data
+        filename = secure_filename(movie_image.filename)
+        movie_image.save(os.path.join(
+        app.instance_path, 'movies_pics/', filename
+        ))
+        url = movie_image.filename
+
+        #create cursor
+        cur = mysql.connection.cursor()
+
+        #execute command
+        cur.execute('INSERT INTO movies(title, rating, image) VALUES(%s, %s, %s)', (title, rating, url))
+
+        #connect to db
+        mysql.connection.commit()
+
+        #close connection
+        cur.close()
+
+        flash('Your movie details form was successfully submitted', 'success')
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('add_movie.html', form=form)
+
+    #function to get recommendation
+    #n_recommender = 7
+    def recommender(movie_name=movie, data=all_data, model=model_knn):
+        #train the data
+        model.fit(data)
+        #find the indices of the nearest movies
+        indices = model.Kneighbors(movie, n_neighbors=7) 
+        #get eech object in i 
+        for i in indices:
+            rec_movies = movie[i]
+            return rec_movies 
+
+
+
+    ##from another video
+    @app.route('upload-image', methods=['POST','GET'])
+    def upload_image():
+        if request.method == 'POST':
+            if request.files:
+
+
+# from flask documentation
+ # # check if the post request has the file part
+        # if 'file' not in form:
+        #     flash('No file part')
+        #     return redirect(request.url)
+        # file = request.files['file']
+        # # if user does not select file, browser also
+        # # submit a empty part without filename
+        # if file.filename == '':
+        #     flash('No selected file')
+        #     return redirect(request.url)
+        if movie_image and allowed_file(movie_image):
+            movie_image = secure_filename(movie_image)
+            movie_image.save(os.path.join(app.config['UPLOAD_FOLDER'], movie_image))
+            
+            #create cursor
+            cur = mysql.connection.cursor()
+
+            #execute command
+            cur.execute('INSERT INTO movies(title, rating, image) VALUES(%s, %s, %s)', (title, rating, movie_image))
+
+            #connect to db
+            mysql.connection.commit()
+
+            #close connection
+            cur.close()
+
+            flash('Your movie details form was successfully submitted', 'success')
+
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
+#rough work for model design
+#keys = ['id','rating','vote_count'] not used
+    #knn.fit([[i[x] for x in keys]])
+    #for m in movie.values():
+        #print(m)
+        #indices = knn.kneighbors([[m]], n_neighbors=1)
+        #print(indices)
+        
+        #for i in indices:
+             #rec_movies = all_data[i]
+             #print(rec_movies) 
+    #value = [m for m in movie.values() if (type(m) == int) | (type(m) == float)] #select vales for x
+    #print(value)
+    #indices = knn.kneighbors([value], n_neighbors=1)

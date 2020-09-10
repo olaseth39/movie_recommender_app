@@ -1,0 +1,54 @@
+/* body{
+	background: url(images/quicktellerbg.jpg);
+} */
+
+body {
+	background: black;
+	color: white
+}
+.movie-list-container {
+	display : flex;
+	flex-direction : row;
+	flex-wrap: wrap;
+	justify-content: space-around
+}
+
+.movie-card {
+	width : 300px;
+	height: auto;
+	background: white;
+	padding: 15px;
+	align-self: center;
+	border-radius: 2px;
+	box-shadow: 2px 2px 4px #e6020d;
+	margin: 15px
+}
+
+img {
+	max-width: 100%;
+}
+
+a {
+	text-decoration-line: none
+}
+
+div p .textcolor {
+	color: white;
+	font-size: 30px
+}
+
+.givPadding {
+	padding-top: 30px
+}
+
+table th {
+	color: black
+}
+
+table td {
+	color: rgb(255, 0, 55)
+}
+
+.home-font-color {
+	color: #e6020d
+}

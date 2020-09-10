@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron text-center">
+                    <h1 class="home-font-color" style="color:#e6020d">Welcome to movies.com</h1>
+                    <p class="home-font-color">We feed you with the latest movies</p>
+                    <p class="home-font-color">Your story might interest a movie producer. Sign up/Log in and write your story.</p>
+                    <!-- {% if session.logged_in == NULL %}
+                    <a href="/register" class="btn btn-primary btn-lg">Sign up</a>
+                    <a href="/login" class="btn btn-success btn-lg">Log in</a>
+                    {% endif %} -->
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-list-container">
+            {% for movie in movies %}
+            <div class="movie-card">
+                <img src="/static/uploads/movie_image/{{movie.image}}" alt="movie" class="movie-poster">
+                <a href="movie/{{movie['id']}}"><button class="btn btn-success btn-block">{{movie.title}} &nbsp;&raquo; Watch</button></a>
+            </div>
+            {% endfor %}
+        </div>
+               
+    </div>
+    
+{% endblock %}

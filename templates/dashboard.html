@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <p>Summarize your story <b>not more than 600 words</b>(you'll be contacted for the rest). You never know who might be interested.</p>
+    <h1>Dashboard <small> Welcome {{session.email}}</small></h1>
+    
+    {% for article in articles %}
+    <a class='btn btn-success' href="/add_article/{{article.user_id}}">Add Your Story</a>
+        {% if article.role_id > 1 %}
+            <a class='btn btn-success' href="/add_movie">Add Movie</a>
+        {% endif %}
+    <!-- {% endfor %} -->
+    <hr>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <!-- <th>Author</th> -->
+            <th>Date</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <!-- loop through to get the rows -->
+        <!-- {% for article in articles %} -->
+            <tr>
+                <td>{{article.id}}</td>
+                <td>{{article.title}}</td>
+                <!-- <td style="color: rgb(255, 0, 55)">{{article.author}}</td> -->
+                <td>{{article.create_date}}</td>
+                <td><a href="edit_article/{{article.id}}" class="btn btn-default pull-right">Edit</a></td>
+                <td>
+                    <form action="{{url_for('delete_article', id=article.id)}}" method="POST">
+                        <input type="hidden" name="method" value="DELETE">
+                        <input type="submit" value="Delete" class='btn btn-danger'>
+                    </form>
+                </td>
+            </tr>
+        <!-- {% endfor %} -->
+    </table>
+     
+{% endblock %}
+
