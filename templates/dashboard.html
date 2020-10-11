@@ -27,7 +27,7 @@
                 <td>{{article.title}}</td>
                 <!-- <td style="color: rgb(255, 0, 55)">{{article.author}}</td> -->
                 <td>{{article.create_date}}</td>
-                <td><a href="edit_article/{{article.id}}" class="btn btn-default pull-right">Edit</a></td>
+                <td><a href="{{url_for('edit_article', id=article.id)}}" class="btn btn-default pull-right">Edit</a></td>
                 <td>
                     <form action="{{url_for('delete_article', id=article.id)}}" method="POST">
                         <input type="hidden" name="method" value="DELETE">

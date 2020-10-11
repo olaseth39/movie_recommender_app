@@ -407,7 +407,7 @@ def movie(id):
     #cur.close()
 
     #Get a movie 
-    result = cur.execute("SELECT id, title, rating, image, popularity, overview, date FROM movies WHERE id= %s", [id])
+    result = cur.execute("SELECT id, title, rating, image, popularity, overview, date, movie_url FROM movies WHERE id= %s", [id])
     if result == 1: #this is just to make use or result,it's not needed
         movie = cur.fetchone() #fecth in dictionary format
 
